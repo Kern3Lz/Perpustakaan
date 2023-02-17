@@ -81,12 +81,13 @@ if(isset($_POST["cari"])) {
 		}
 
 		table tr td {
-			padding: .5rem;
+			padding: 1rem;
 		}
 
 		table thead tr th {
 			background-color: #000;
 			color: #fff;
+			padding: .5rem 1rem;
 		}
 
 		table tr:nth-child(even) {
@@ -102,33 +103,9 @@ if(isset($_POST["cari"])) {
 			margin: .5rem 0 2rem 0;
 		}
 
-		#deskripsi {
-			overflow-y: scroll;
-			width: 20%;
-			height: 100px;
+		td.deskripsi {
+			width: 30%;
 		}
-
-		#deskripsi::-webkit-scrollbar {
-			width: 0.2em;
-			background-color: #F5F5F5;
-		} 
-
-		#deskripsi::-webkit-scrollbar-thumb {
-			background-color: #000000;
-		} 
-
-		#deskripsi::-webkit-scrollbar-thumb:hover {
-			background-color: #555555;
-		}
-
-		table tr:nth-child(odd) #deskripsi::-webkit-scrollbar-track {
-			background-color: #2c3034;
-		}
-
-		table tr:nth-child(even) #deskripsi::-webkit-scrollbar-track {
-			background-color:#212529;
-		}
-
 
 	</style>
 </head>
@@ -159,7 +136,7 @@ if(isset($_POST["cari"])) {
 					</li>
 					<li>';
 				} ?>
-				<?php if ($_SESSION['level'] == 'Admin' || 'Pustakawan') {
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] =='Pustakawan') {
 					echo '
 					<li>
 					<a href="../kategori/kategori.php" class="nav-link text-white">
@@ -186,7 +163,7 @@ if(isset($_POST["cari"])) {
 					</a>
 					</li>';
 				}?>
-				<?php if ($_SESSION['level'] == 'Admin' || 'Pustakawan') { 
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] =='Pustakawan') { 
 					echo '<li>
 					<a href="../laporan/laporan.php" class="nav-link text-white">
 					Laporan
@@ -234,7 +211,7 @@ if(isset($_POST["cari"])) {
 			</form>	
 			<br>
 
-			<table border="0" cellpadding="10" cellspacing="0">
+			<table border="0" cellpadding="10" cellspacing="0" class="mb-3">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
@@ -251,14 +228,15 @@ if(isset($_POST["cari"])) {
 				</thead>
 				<?php $i = $halamanawal + 1;
 				?>
-				<?php foreach($buku as $data) : ?>
+				<?php if(!empty($buku)) { 
+				 foreach($buku as $data) : ?>
 					<tr>
 						<td><?= $i; ?></td>
-						<td width=""><?= $data['f_judul']; ?></td>
+						<td><?= $data['f_judul']; ?></td>
 						<td><?= $data['f_kategori']; ?></td>
 						<td><?= $data['f_pengarang']; ?></td>
 						<td><?= $data['f_penerbit']; ?></td>
-						<td id="deskripsi"><?= $data['f_deskripsi']; ?></td>
+						<td class="deskripsi"><?= $data['f_deskripsi']; ?></td>
 						<?php if($_SESSION['level'] == 'Admin') { ?>
 							<td>
 								<ul class="pagination pagination-sm">
@@ -279,7 +257,7 @@ if(isset($_POST["cari"])) {
 						
 					</tr>
 					<?php $i++; ?>
-				<?php endforeach; ?>
+				<?php endforeach; } ?>
 
 			</table>
 

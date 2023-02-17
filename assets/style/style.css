@@ -86,6 +86,7 @@ table tr th {
 }
 
 table tr td {
+    overflow: hidden;
     text-align: left;
     padding: 2px 8px 4px 8px;
 }

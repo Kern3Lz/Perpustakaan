@@ -112,12 +112,13 @@ if(isset($_POST["cari"])) {
 		}
 
 		table tr td {
-			padding: .5rem;
+			padding: 1rem;
 		}
 
 		table thead tr th {
 			background-color: #000;
 			color: #fff;
+			padding: 0.5rem 1rem;
 		}
 
 		table tr:nth-child(even) {
@@ -237,36 +238,35 @@ if(isset($_POST["cari"])) {
 			</form>	
 			<br>
 
-			<table border="0" cellpadding="10" cellspacing="0">
+			<table border="0" cellpadding="10" cellspacing="0" class="mb-3">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Nama</th>
 						<th>Kategori</th>
 						<th>Judul Buku</th>
-						<th>Tanggal Pinjam</th>
+						<th class="text-center">Tanggal Pinjam</th>
 						<th>Nama Admin</th>
-						<th><center>Aksi</center></th>
+						<th class="text-center">Aksi</th>
 					</tr>
 				</thead>
 				<?php $i = $halamanawal + 1;
 				?>
-				<?php foreach($peminjaman as $data) : ?>
+				<?php if (!empty($peminjaman)) {
+					foreach($peminjaman as $data) : ?>
 					<tr>
 						<td><?= $i; ?></td>
 						<td><?php if($data['f_namaanggota'] == '') {echo 'Anggota tidak terdaftar';} else {echo $data['f_namaanggota'];} ?></td>
 						<td><?= $data['f_kategori'] ?></td>
 						<td><?= $data["f_judul"]; ?></td>
-						<td><?= $data["f_tanggalpeminjaman"]; ?></td>
+						<td class="text-center"><?= $data["f_tanggalpeminjaman"]; ?></td>
 						<td><?= $data["f_namaadmin"]; ?></td>
-						<td>
-							<center>
+						<td class="text-center">
 								<a href="ubahPeminjaman.php?id=<?= $data["f_id"] ?>&idb=<?= $data['f_iddetb']; ?>"><i class="fa-sharp fa-solid fa-edit tbl-edit"></i></a>
-							</center>
 						</td>
 					</tr>
 					<?php $i++; ?>
-				<?php endforeach; ?>
+				<?php endforeach;} ?>
 
 			</table>
 

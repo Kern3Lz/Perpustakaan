@@ -103,11 +103,12 @@ $buku = $db->getALL("SELECT t_buku.f_id as idbuku, t_buku.f_deskripsi, t_buku.f_
 	</style>
 </head>
 <body data-bs-theme="dark">
-	<div class="container">
+	<div class="container"
 		<header class="d-flex justify-content-center py-3">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><a href="../../index.php" class="nav-link active" aria-current="page">Home</a></li>
 				<li class="nav-item"><a href="../../php/admin/login.php" class="nav-link">Admin</a></li>
+				<li class="nav-item"><a href="../../php/pustakawan/login.php" class="nav-link">Pustakawan</a></li>
 				<li class="nav-item"><a href="../../php/anggota/login.php" class="nav-link">Anggota</a></li>
 			</ul>
 		</header>

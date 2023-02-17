@@ -13,29 +13,17 @@ if (isset($_SESSION['status']) == 'Tidak Aktif') {
 $bukuseluruh = $db->rowCOUNT("SELECT f_judul FROM t_buku");
 
 $bukupinjam = $db->rowCOUNT("SELECT f_judul FROM t_buku INNER JOIN t_detailbuku ON 
-	t_buku.f_id=t_detailbuku.f_idbuku WHERE f_status='Tidak Tersedia'");
+	t_buku.f_id=t_detailbuku.f_idbuku WHERE f_status='tidak'");
 
 $bukutersedia = $db->rowCOUNT("SELECT f_judul FROM t_buku INNER JOIN t_detailbuku ON 
-	t_buku.f_id=t_detailbuku.f_idbuku WHERE f_status='Tersedia'");
+	t_buku.f_id=t_detailbuku.f_idbuku WHERE f_status='tersedia'");
 
 $limabuku = $db->getITEM("SELECT f_judul, COUNT(*) AS dipinjam FROM t_peminjaman 
 	INNER JOIN t_detailpeminjaman ON t_peminjaman.f_id=t_detailpeminjaman.f_idpeminjaman 
 	INNER JOIN t_detailbuku ON t_detailpeminjaman.f_iddetailbuku=t_detailbuku.f_id 
 	INNER JOIN t_buku ON t_detailbuku.f_idbuku=t_buku.f_id 
 	WHERE NOT f_tanggalkembali = '0000-00-00'
-	GROUP BY f_judul ORDER BY COUNT(*) DESC LIMIT 5");
-
-$limaanggota = $db->getALL("SELECT f_nama, COUNT(*) AS pinjam FROM t_anggota 
-	INNER JOIN t_peminjaman ON t_anggota.f_id=t_peminjaman.f_idanggota 
-	GROUP BY f_nama ORDER BY COUNT(*) DESC LIMIT 5
-	");
-
-$anggota = $db->getALL("SELECT f_nama, COUNT(*) AS kembali FROM t_anggota 
-	INNER JOIN t_peminjaman ON t_anggota.f_id=t_peminjaman.f_idanggota
-	INNER JOIN t_detailpeminjaman ON t_peminjaman.f_id=t_detailpeminjaman.f_idpeminjaman 
-	WHERE f_tanggalkembali ='0000-00-00' 
-	GROUP BY f_nama ORDER BY COUNT(*) DESC LIMIT 5
-	");
+	GROUP BY f_judul ORDER BY COUNT(*) DESC LIMIT 1");
 	?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -118,7 +106,7 @@ $anggota = $db->getALL("SELECT f_nama, COUNT(*) AS kembali FROM t_anggota
 						</a>
 						</li>';
 					}?>
-					<?php if ($_SESSION['level'] == 'Admin' || 'Pustakawan') { 
+					<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 
 						echo '<li>
 						<a href="../laporan/laporan.php" class="nav-link text-white">
 						Laporan
@@ -187,7 +175,7 @@ $anggota = $db->getALL("SELECT f_nama, COUNT(*) AS kembali FROM t_anggota
 						<div class="card-header text-center">Perpustakaan Online</div>
 						<div class="card-body text-light">
 							<h5 class="card-title text-center">Buku Terpopuler</h5>
-							<h4 class="card-title text-center"><?= $limabuku['f_judul']; ?></h4>
+							<h4 class="card-title text-center"><?php if(empty($limabuku['f_judul'])){echo 'Belum ada';} else { echo $limabuku['f_judul'];} ?></h4>
 						</div>
 					</div>
 				</div>

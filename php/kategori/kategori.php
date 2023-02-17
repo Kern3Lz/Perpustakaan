@@ -93,12 +93,13 @@ if(isset($_POST["cari"])) {
 		}
 
 		table tr td {
-			padding: .5rem;
+			padding: 1rem;
 		}
 
 		table thead tr th {
 			background-color: #000;
 			color: #fff;
+			padding: .5rem 1rem;
 		}
 
 		table tr:nth-child(even) {
@@ -218,7 +219,7 @@ if(isset($_POST["cari"])) {
 			</form>	
 			<br>
 
-			<table border="0" cellpadding="10" cellspacing="0">
+			<table border="0" cellpadding="10" cellspacing="0" class="mb-3">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -228,7 +229,8 @@ if(isset($_POST["cari"])) {
 				</thead>
 				<?php $i = $halamanawal + 1;
 				?>
-				<?php foreach( $kategori as $data ) : ?>
+				<?php if(!empty($kategori)) { 
+					foreach( $kategori as $data ) : ?>
 					<tr>
 						<td><?= $i; ?></td>
 						<td><?= $data["f_kategori"]; ?></td>
@@ -240,7 +242,7 @@ if(isset($_POST["cari"])) {
 						</td>
 					</tr>
 					<?php $i++; ?>
-				<?php endforeach; ?>
+				<?php endforeach; }?>
 
 			</table>
 

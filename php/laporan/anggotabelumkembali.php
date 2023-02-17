@@ -74,7 +74,7 @@ if ($_GET['cetak'] == 'xls') {
         <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Halaman Peminjaman Buku</title>
+        <title>Halaman Anggota Belum Kembali</title>
 
         <!-- Icon -->
         <link rel="shortcut icon" href="../../assets/icon/favicon.png" type="image/x-icon">
@@ -166,12 +166,12 @@ if ($_GET['cetak'] == 'xls') {
         </style>
         </head>
         <body>
-        <h1 class="text-center">Data Buku</h1>
+        <h1 class="text-center">Data Buku Belum Kembali</h1>
         <table border="0" cellpadding="10" cellspacing="0" class="mt-3">
         <thead class="w table-primary">
         <tr>
         <th class="w">No</th>
-        <th class="w">Banyak Anggota yang Belum Kembali</th>
+        <th class="w">Banyak Anggota yang belum mengembalikan</th>
         <th class="w">Buku</th>
         </tr>
         </thead>

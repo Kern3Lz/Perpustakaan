@@ -3,16 +3,16 @@ session_start();
 require_once '../dbcontroller.php';
 $db = new DBConnection();
 
-if($_SESSION['level'] == 'Anggota Perpustakaan' || 'Pustakawan') {
-  echo "<script>
-  alert('Anda bukan admin');
-  document.location.href = '../home/index.php';
-  </script>";
+if($_SESSION['level'] == 'Anggota Perpustakaan' || $_SESSION['level'] == 'Pustakawan') {
+    echo "<script>
+    alert('Anda bukan admin');
+    document.location.href = '../home/index.php';
+    </script>";
 } else if ($_SESSION['status'] == 'Tidak Aktif') {
-  echo "<script>
-  alert('Akun anda tidak aktif');
-  document.location.href = '../home/index.php
-  </script>";
+    echo "<script>
+    alert('Akun anda tidak aktif');
+    document.location.href = '../home/index.php
+    </script>";
 }
 
 // Jika session login tidak ada maka kembali ke halaman login

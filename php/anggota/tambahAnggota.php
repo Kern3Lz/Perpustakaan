@@ -3,7 +3,7 @@ session_start();
 require_once '../dbcontroller.php';
 $db = new DBConnection();
 
-if($_SESSION['level'] == 'Anggota Perpustakaan' || 'Pustakawan') {
+if($_SESSION['level'] == 'Anggota Perpustakaan' || $_SESSION['level'] == 'Pustakawan') {
   echo "<script>
   alert('Anda bukan admin');
   document.location.href = '../home/index.php';

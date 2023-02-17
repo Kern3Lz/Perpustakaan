@@ -99,12 +99,13 @@ if(isset($_POST["cari"])) {
 		}
 
 		table tr td {
-			padding: .5rem;
+			padding: 1rem;
 		}
 
 		table thead tr th {
 			background-color: #000;
 			color: #fff;
+			padding: .5rem 1rem;
 		}
 
 		table tr:nth-child(even) {
@@ -230,45 +231,46 @@ if(isset($_POST["cari"])) {
 			<br>
 
 			<div id="container1">
-				<table border="0" cellpadding="10" cellspacing="0" id="data-table">
+				<table border="0" cellpadding="15" cellspacing="0" id="data-table" class="mb-3">
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>Nama</th>
-							<th>Judul Buku</th>
-							<th>Tanggal Kembali</th>
+							<th class="text-start">Judul Buku</th>
+							<th class="text-center">Tanggal Kembali</th>
 							<th>Nama Admin</th>
-							<th>Kembalikan</th>
+							<th class="text-center">Kembalikan</th>
 							<th><center>Aksi</center></th>
 						</tr>
 					</thead>
 					<?php $i = $halamanawal + 1;
 					?>
-					<?php foreach( $pengembalian as $data ) : ?>
+					<?php if(!empty($pengembalian)) { 
+						foreach( $pengembalian as $data ) : ?>
 						<tr>
 							<td><?= $i; ?></td>
 							<td><?php if($data['namaanggota'] == '') {echo 'Anggota tidak terdaftar';} else {echo $data['namaanggota'];} ?></td>
-							<td><?= $data["f_judul"]; ?></td>
-							<td id="tgl" data-tanggal="<?= $data['f_tanggalkembali']; ?>"> <?php
+							<td class="text-start"><?= $data["f_judul"]; ?></td>
+							<td id="tgl" data-tanggal="<?= $data['f_tanggalkembali']; ?>" class="text-center"> <?php
 							if ($data['f_tanggalkembali'] == '0000-00-00') {
 								echo "Belum Kembali";
 							} else {
 								echo $data['f_tanggalkembali'];
 							} ?> </td>
 							<td><?= $data['namaadmin']; ?></td>
-							<td id="buttonKembali"><?php if ($data['f_tanggalkembali'] == '0000-00-00') { ?>
+							<td id="buttonKembali" class="text-center"><?php if ($data['f_tanggalkembali'] == '0000-00-00') { ?>
 								<button type='button' class='btn btn-outline-danger id-detail kembalikan' data-iddetailbuku="<?= $data['iddetailbuku']; ?>" data-idpengembalian="<?= $data['idpengembalian']; ?>">Kembalikan</button>
 							<?php } else { ?>
 								<button type='button' class='btn btn-outline-success id-detail sudah-kembali' data-iddetailbuku="<?= $data['iddetailbuku']; ?>" data-idpengembalian="<?= $data['idpengembalian']; ?>">Sudah Kembali</button>
 								<?php } ?> </td>
 								<td>
 									<center>
-										<a href="hapusPengembalian.php?id=<?= $data["idpengembalian"]; ?>" onclick="return confirm('yakin?');"><i class="fa-sharp fa-solid fa-trash tbl-hapus"></i></a>
+										<a href="hapusPengembalian.php?id=<?= $data["idpengembalian"]; ?>""><i class="fa-sharp fa-solid fa-trash tbl-hapus"></i></a>
 									</center>
 								</td>
 							</tr>
 							<?php $i++; ?>
-						<?php endforeach; ?>
+						<?php endforeach;}?>
 
 					</table>
 

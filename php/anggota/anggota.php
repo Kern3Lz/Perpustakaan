@@ -217,7 +217,7 @@ if(isset($_POST["cari"])) {
 			</form>	
 			<br>
 
-			<table border="0" cellpadding="10" cellspacing="0">
+			<table border="0" cellpadding="10" cellspacing="0" class="mb-3">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -231,7 +231,8 @@ if(isset($_POST["cari"])) {
 				</thead>
 				<?php $i = $halamanawal + 1;
 				?>
-				<?php foreach( $pengguna as $data ) : ?>
+				<?php if(!empty($pengguna)) { 
+					foreach( $pengguna as $data ) : ?>
 					<tr>
 						<td><?= $i; ?></td>
 						<td><?= $data["f_nama"]; ?></td>
@@ -247,7 +248,7 @@ if(isset($_POST["cari"])) {
 						</td>
 					</tr>
 					<?php $i++; ?>
-				<?php endforeach; ?>
+				<?php endforeach;} ?>
 
 			</table>
 

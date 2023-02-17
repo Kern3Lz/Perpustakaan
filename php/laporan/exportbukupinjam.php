@@ -86,7 +86,7 @@ if ($_GET['cetak'] == 'xls') {
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Peminjaman Buku</title>
+    <title>Halaman Jumlah Buku Dipinjam</title>
 
     <!-- Icon -->
     <link rel="shortcut icon" href="../../assets/icon/favicon.png" type="image/x-icon">
