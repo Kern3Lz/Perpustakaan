@@ -144,7 +144,7 @@ if(isset($_POST["cari"])) {
 					</li>
 					<li>';
 				} ?>
-				<?php if ($_SESSION['level'] == 'Admin' || 'Pustakawan') {
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') {
 					echo '
 					<li>
 					<a href="../kategori/kategori.php" class="nav-link active">
@@ -171,7 +171,7 @@ if(isset($_POST["cari"])) {
 					</a>
 					</li>';
 				}?>
-				<?php if ($_SESSION['level'] == 'Admin' || 'Pustakawan') { 
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 
 					echo '<li>
 					<a href="../laporan/laporan.php" class="nav-link text-white">
 					Laporan
