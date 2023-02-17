@@ -1,0 +1,223 @@
+/* import font from assets font */
+ @font-face {
+  font-family: 'ABeezee';
+  src: url('assets/fonts/ABeeZee-Regular.ttf') format('truetype');
+}
+
+* {
+    scroll-behavior: smooth;
+    transition: all 0.5s ease;
+    margin: 0;
+    padding: 0;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+body {
+/*    background-color: #2e2e2e;*/
+    font-size: 17px;
+    max-width: 100%;
+    height: 100%;
+    color: #fff;
+}
+
+p {
+    font-size: 14px;
+}
+
+.font-standar {
+    font-size: 14px;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.registrasi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+form {
+    background: #202020;
+    box-shadow: inset hoff voff blur #fff;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 1.5 rem;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 450px;
+    height: 400px;
+    box-sizing: border-box;
+}
+
+form h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+form hr {
+    border: 1px solid #fff;
+    margin-bottom: 2rem;
+}
+
+form ul {
+    list-style: none;
+}
+
+form label {
+    margin: 15px 0 15px 0;
+}
+
+form input {
+    margin: 15px 0 15px 0;
+    padding: .20rem;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form select {
+    margin: 15px 0 15px 0;
+    padding: .20rem;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+::placeholder {
+    color: black;
+}
+
+
+form button {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    background-color: #198754;
+    color: #fff;
+    border-radius: 5px;
+    width: 30%;
+    text-align: center;
+    font-size: .9rem;
+    cursor: pointer;
+    border: 0;
+    padding: 3px;
+}
+
+form button:hover {
+    background-color: #1c7430;
+}
+
+.flex-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-footer .footer {
+    width: 100%;
+    margin: 5px auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.flex-footer .footer p{
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.flex-footer .footer a{
+    color: #0d6efd;
+}
+
+.flex-footer .footer a:hover{
+    color: #0855c9;
+}
+
+.list-buku {
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 1330px;
+  float: left;
+  padding: 20px;
+}
+
+.kartu {
+  width: 280px;
+  float: left;
+  box-shadow: 0px 0px 1px rgb(84, 84, 84);
+  padding: 10px;
+  margin: 10px;
+  transition: 0.5s;
+}
+
+.kartu:hover {
+  box-shadow: 0px 0px 3px rgb(0, 0, 0);
+}
+
+.deskripsi {
+  width: 300px;
+  float: left;
+}
+
+.deskripsi h2 {
+  font-size: 20px;
+  margin: 10px;
+  text-align: center;
+}
+
+.deskripsi p {
+  font-size: 14px;
+  margin: 10px;
+  text-align: center;
+}
+
+.kartu .deskripsi a img {
+  width: 50%;
+  margin: 20px;
+  transition: 0.5s;
+}
+
+.kartu .deskripsi a img:hover {
+  transform: scale(1.2);
+}
+
+.kartu table {
+  width: 100%;
+  margin: 0px 5%;
+  line-height: 25px;
+}
+
+/* untuk clearfix */
+.cf:before,
+.cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+  *zoom: 1;
+}
