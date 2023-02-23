@@ -167,6 +167,12 @@ if(isset($_POST["cari"])) {
 					<a href="../anggota/anggota.php" class="nav-link active">
 					Anggota
 					</a>
+					</li>
+
+					<li>
+					<a href="../admin/admin.php" class="nav-link text-white">
+					Admin
+					</a>
 					</li>';
 				}?>
 				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 
@@ -199,7 +205,7 @@ if(isset($_POST["cari"])) {
 		<div class="content">
 
 
-			<center><h1>Daftar Anggota Buku Perpustakaan</h1></center>
+			<center><h1>Daftar Anggota Perpustakaan</h1></center>
 
 			<form action="" method="post">
 
@@ -226,6 +232,8 @@ if(isset($_POST["cari"])) {
 						<th>Password</th>
 						<th>Tempat Lahir</th>
 						<th>Tanggal Lahir</th>
+						<th class="text-center">Kelas</th>
+						<th class="text-center">Jurusan</th>
 						<th><center>Aksi</center></th>
 					</tr>
 				</thead>
@@ -240,6 +248,8 @@ if(isset($_POST["cari"])) {
 						<td><?= $data["f_password"]; ?></td>
 						<td><?= $data["f_tempatlahir"]; ?></td>
 						<td><?= $data["f_tanggallahir"]; ?></td>
+						<td class="text-center"><?= $data["f_kelas"]; ?></td>
+						<td class="text-center"><?= $data["f_jurusan"]; ?></td>
 						<td>
 							<center>
 								<a href="ubahAnggota.php?id=<?= $data["f_id"]; ?>"><i class="fa-sharp fa-solid fa-edit tbl-edit"></i></a>

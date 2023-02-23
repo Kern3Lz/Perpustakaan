@@ -161,6 +161,12 @@ if(isset($_POST["cari"])) {
 					<a href="../anggota/anggota.php" class="nav-link text-white">
 					Anggota
 					</a>
+					</li>
+
+					<li>
+					<a href="../admin/admin.php" class="nav-link text-white">
+					Admin
+					</a>
 					</li>';
 				}?>
 				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] =='Pustakawan') { 
@@ -173,8 +179,6 @@ if(isset($_POST["cari"])) {
 			</ul>
 
 			<div class="d-flex col-md-3 text-end align-items-center justify-content-center">
-				<!-- <button type="button" class="btn btn-outline-primary me-2">Login</button>
-					<button type="button" class="btn btn-primary">Sign-up</button> -->
 					<div class="dropdown text-end">
 						<a href="#" class="text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							<img src="../../assets/profil/default-profil.png" alt="" width="32" height="32" class="rounded-circle me-2">

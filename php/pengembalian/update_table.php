@@ -83,7 +83,7 @@ if(isset($_POST["cari"])) {
                 <?php } ?> </td>
                 <td>
                     <center>
-                        <a href="ubahPengembalian.php?id=<?= $data["idpengembalian"]; ?>" onclick="return confirm('yakin?');"><i class="fa-sharp fa-solid fa-edit btn btn-danger"></i></a>
+                        <a href="ubahPengembalian.php?id=<?= $data["idpengembalian"]; ?>" onclick="return confirm('yakin?');"><i class="fa-sharp fa-solid fa-trash tbl-hapus"></i></a>
                     </center>
                 </td>
             </tr>

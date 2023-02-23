@@ -104,6 +104,12 @@ $limabuku = $db->getITEM("SELECT f_judul, COUNT(*) AS dipinjam FROM t_peminjaman
 						<a href="../anggota/anggota.php" class="nav-link text-white">
 						Anggota
 						</a>
+						</li>
+
+						<li>
+						<a href="../admin/admin.php" class="nav-link text-white">
+						Admin
+						</a>
 						</li>';
 					}?>
 					<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 

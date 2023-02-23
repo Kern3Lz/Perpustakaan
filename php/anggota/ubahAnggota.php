@@ -64,6 +64,10 @@ if(isset($_POST['ubah'])) {
     .form-control {
       color:  #000 !important ;
     }
+
+    .form-select {
+      color:  #000 !important ;
+    }
   </style>
 
 </head>
@@ -96,6 +100,24 @@ if(isset($_POST['ubah'])) {
             <div class="col-md-12">
               <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
               <input type="date" name="tanggalLahir" class="form-control" id="tanggalLahir" placeholder="Masukkan tanggal lahir .."  value="<?= $data['f_tanggallahir']; ?>">
+            </div>
+            <div class="col-md-12">
+              <label for="kelas" class="form-label">Kelas</label>
+              <select name="kelas" id="kelas" class="form-select">
+                <option value="<?= $data['f_kelas']; ?>" selected><?= $data['f_kelas']; ?></option>
+                <option value="X">X</option>
+                <option value="XI">XI</option>
+                <option value="XII">XII</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label for="jurusan" class="form-label">Jurusan</label>
+              <select name="jurusan" id="jurusan" class="form-select">
+                <option value="<?= $data['f_jurusan']; ?>" selected><?= $data['f_jurusan']; ?></option>
+                <option value="RPL">RPL</option>
+                <option value="ANM">ANM</option>
+                <option value="DKV">DKV</option>
+              </select>
             </div>
             <div class="col-6 offset-md-4">
               <a href="anggota.php" class="btn btn-danger">Kembali</a>

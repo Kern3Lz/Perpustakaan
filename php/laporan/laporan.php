@@ -173,6 +173,12 @@ $anggota = $db->getALL("SELECT f_nama as namaAnggota, COUNT(*) AS kembali FROM t
                         <a href="../anggota/anggota.php" class="nav-link text-white">
                         Anggota
                         </a>
+                        </li>
+
+                        <li>
+                        <a href="../admin/admin.php" class="nav-link text-white">
+                        Admin
+                        </a>
                         </li>';
                     }?>
                     <?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') {

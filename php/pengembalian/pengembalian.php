@@ -35,7 +35,7 @@ $Next = $halaman + 1;
 $halamanawal =
 $halaman > 1 ? $halaman * $jumlahdataperhalaman - $jumlahdataperhalaman : 0;
 
-$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
+$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_peminjaman.f_tanggalpeminjaman, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
 FROM t_peminjaman
 INNER JOIN t_admin ON t_peminjaman.f_idadmin=t_admin.f_id
 INNER JOIN t_anggota ON t_peminjaman.f_idanggota=t_anggota.f_id
@@ -126,6 +126,20 @@ if(isset($_POST["cari"])) {
 			font-size: .8rem;
 		}
 
+		.menu-peminjaman {
+			text-decoration: none;
+			color: white;
+		}
+
+		.menu-peminjaman:hover {
+			text-decoration: none;
+			color: #BFBFBF;
+		}
+
+		.menu-peminjaman:active {
+			text-decoration: none;
+		}
+
 	</style>
 </head>
 <body data-bs-theme="dark">
@@ -180,6 +194,12 @@ if(isset($_POST["cari"])) {
 					echo '<li>
 					<a href="../anggota/anggota.php" class="nav-link text-white">
 					Anggota
+					</a>
+					</li>
+
+					<li>
+					<a href="../admin/admin.php" class="nav-link text-white">
+					Admin
 					</a>
 					</li>';
 				}?>
@@ -237,6 +257,7 @@ if(isset($_POST["cari"])) {
 							<th>#</th>
 							<th>Nama</th>
 							<th class="text-start">Judul Buku</th>
+							<th class="text-center"><a href="../peminjaman/peminjaman.php" class="menu-peminjaman">Tanggal Pinjam</a></th>
 							<th class="text-center">Tanggal Kembali</th>
 							<th>Nama Admin</th>
 							<th class="text-center">Kembalikan</th>
@@ -251,6 +272,7 @@ if(isset($_POST["cari"])) {
 							<td><?= $i; ?></td>
 							<td><?php if($data['namaanggota'] == '') {echo 'Anggota tidak terdaftar';} else {echo $data['namaanggota'];} ?></td>
 							<td class="text-start"><?= $data["f_judul"]; ?></td>
+							<td class="text-center"><a href="../peminjaman/peminjaman.php" class="menu-peminjaman"><?= $data['f_tanggalpeminjaman']; ?></a></td>
 							<td id="tgl" data-tanggal="<?= $data['f_tanggalkembali']; ?>" class="text-center"> <?php
 							if ($data['f_tanggalkembali'] == '0000-00-00') {
 								echo "Belum Kembali";

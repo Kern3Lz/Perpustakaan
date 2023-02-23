@@ -106,10 +106,13 @@ class DBConnection {
 		$password = htmlspecialchars($data['password']);
 		$tempatLahir = htmlspecialchars($data['tempatLahir']);
 		$tanggalLahir = htmlspecialchars($data['tanggalLahir']);
+		$kelas = htmlspecialchars($data['kelas']);
+		$jurusan = htmlspecialchars($data['jurusan']);
+
 
 		$passwordhash = password_hash($password, PASSWORD_DEFAULT);
 
-		$sql = "INSERT INTO t_anggota VALUES ('', '$namaAnggota', '$username', '$passwordhash', '$tempatLahir', '$tanggalLahir')";
+		$sql = "INSERT INTO t_anggota VALUES ('', '$namaAnggota', '$username', '$passwordhash', '$tempatLahir', '$tanggalLahir', '$kelas', '$jurusan')";
 
 		mysqli_query($this->conn, $sql);
 
@@ -122,6 +125,8 @@ class DBConnection {
 		$username = htmlspecialchars($data['username']);
 		$tempatLahir = htmlspecialchars($data['tempatLahir']);
 		$tanggalLahir = htmlspecialchars($data['tanggalLahir']);
+		$kelas = htmlspecialchars($data['kelas']);
+		$jurusan = htmlspecialchars($data['jurusan']);
 
 		$password = htmlspecialchars($data['password']);
 		if ($password == $data['passwordLama']) {
@@ -135,7 +140,9 @@ class DBConnection {
 		f_username = '$username',
 		f_password = '$passwordhash',
 		f_tempatlahir = '$tempatLahir',
-		f_tanggallahir = '$tanggalLahir'
+		f_tanggallahir = '$tanggalLahir',
+		f_kelas = '$kelas',
+		f_jurusan = '$jurusan'
 		WHERE f_id = '$idAnggota'";
 
 		mysqli_query($this->conn, $sql);
@@ -249,7 +256,9 @@ class DBConnection {
 		f_username LIKE '%$keyword%' OR
 		f_password LIKE '%$keyword' OR
 		f_tempatlahir LIKE '%$keyword%' OR
-		f_tanggallahir LIKE '%$keyword%'
+		f_tanggallahir LIKE '%$keyword%' OR 
+		f_kelas LIKE '%$keyword%' OR
+		f_jurusan LIKE '%$keyword%'
 		";
 		return $this->query($query);
 	}
@@ -295,25 +304,25 @@ class DBConnection {
 	public function cariPengembalian($keyword) {
 		if ($keyword == str_contains($keyword, 'Belum Kembali')) {
 			$keyword = '0000-00-00';
-			$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
+			$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_peminjaman.f_tanggalpeminjaman, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
 			FROM t_peminjaman
 			INNER JOIN t_admin ON t_peminjaman.f_idadmin=t_admin.f_id
 			INNER JOIN t_anggota ON t_peminjaman.f_idanggota=t_anggota.f_id
 			INNER JOIN t_detailpeminjaman ON t_peminjaman.f_id=t_detailpeminjaman.f_idpeminjaman
 			INNER JOIN t_detailbuku ON t_detailpeminjaman.f_iddetailbuku=t_detailbuku.f_id
 			INNER JOIN t_buku ON t_detailbuku.f_idbuku=t_buku.f_id 
-			WHERE t_detailpeminjaman.f_tanggalkembali IS NOT NULL AND (t_anggota.f_nama LIKE '%$keyword%' OR t_peminjaman.f_id LIKE '%$keyword%' OR t_detailpeminjaman.f_tanggalkembali LIKE '%$keyword%' OR t_buku.f_judul LIKE '%$keyword%' OR t_admin.f_nama LIKE '%$keyword%' OR t_detailpeminjaman.f_id LIKE '%$keyword%' OR t_detailbuku.f_id LIKE '%$keyword%')
+			WHERE t_detailpeminjaman.f_tanggalkembali IS NOT NULL AND (t_anggota.f_nama LIKE '%$keyword%' OR t_peminjaman.f_tanggalpeminjaman LIKE '%$keyword%' OR t_detailpeminjaman.f_tanggalkembali LIKE '%$keyword%' OR t_buku.f_judul LIKE '%$keyword%' OR t_admin.f_nama LIKE '%$keyword%' OR t_detailpeminjaman.f_id LIKE '%$keyword%' OR t_detailbuku.f_id LIKE '%$keyword%')
 			ORDER BY t_peminjaman.f_tanggalpeminjaman DESC";
 			return $this->getALL($query);
 		}	else {	
-			$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
+			$query = "SELECT t_anggota.f_nama AS namaanggota, t_peminjaman.f_id, t_peminjaman.f_tanggalpeminjaman, t_detailpeminjaman.f_tanggalkembali, t_buku.f_judul, t_admin.f_nama AS namaadmin,t_detailpeminjaman.f_id as idpengembalian, t_detailbuku.f_id as iddetailbuku
 			FROM t_peminjaman
 			INNER JOIN t_admin ON t_peminjaman.f_idadmin=t_admin.f_id
 			INNER JOIN t_anggota ON t_peminjaman.f_idanggota=t_anggota.f_id
 			INNER JOIN t_detailpeminjaman ON t_peminjaman.f_id=t_detailpeminjaman.f_idpeminjaman
 			INNER JOIN t_detailbuku ON t_detailpeminjaman.f_iddetailbuku=t_detailbuku.f_id
 			INNER JOIN t_buku ON t_detailbuku.f_idbuku=t_buku.f_id 
-			WHERE t_detailpeminjaman.f_tanggalkembali IS NOT NULL AND (t_anggota.f_nama LIKE '%$keyword%' OR t_peminjaman.f_id  LIKE '%$keyword%' OR t_detailpeminjaman.f_tanggalkembali LIKE '%$keyword%' OR t_buku.f_judul  LIKE '%$keyword%' OR t_admin.f_nama LIKE '%$keyword%' OR t_detailpeminjaman.f_id  LIKE '%$keyword%' OR t_detailbuku.f_id  LIKE '%$keyword%')
+			WHERE t_detailpeminjaman.f_tanggalkembali IS NOT NULL AND (t_anggota.f_nama LIKE '%$keyword%' OR t_peminjaman.f_tanggalpeminjaman LIKE '%$keyword%' OR t_detailpeminjaman.f_tanggalkembali LIKE '%$keyword%' OR t_buku.f_judul  LIKE '%$keyword%' OR t_admin.f_nama LIKE '%$keyword%' OR t_detailpeminjaman.f_id  LIKE '%$keyword%' OR t_detailbuku.f_id  LIKE '%$keyword%')
 			ORDER BY t_peminjaman.f_tanggalpeminjaman DESC";
 			return $this->getALL($query);
 		}

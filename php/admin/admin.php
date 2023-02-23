@@ -3,8 +3,20 @@ session_start();
 require_once '../dbcontroller.php';
 $db = new DBConnection();
 
+if($_SESSION['level'] == 'Anggota Perpustakaan') {
+	echo "<script>
+	alert('Anda bukan admin / pustakawan');
+	document.location.href = '../home/index.php';
+	</script>";
+} else if ($_SESSION['status'] == 'Tidak Aktif') {
+	echo "<script>
+	alert('Akun anda tidak aktif');
+	document.location.href = '../home/index.php
+	</script>";
+}
+
 $jumlahdataperhalaman = 10;
-$totaldata = $db->rowCOUNT("SELECT * FROM t_peminjaman");
+$totaldata = $db->rowCOUNT('SELECT * FROM t_admin');
 $jumlahhalaman = ceil($totaldata / $jumlahdataperhalaman);
 if (isset($_GET['halaman'])) {
 	$halamanberapa = $_GET['halaman'];
@@ -23,21 +35,11 @@ $Next = $halaman + 1;
 $halamanawal =
 $halaman > 1 ? $halaman * $jumlahdataperhalaman - $jumlahdataperhalaman : 0;
 
-$query = "SELECT t_peminjaman.f_id AS idpeminjaman, t_peminjaman.f_tanggalpeminjaman, t_detailpeminjaman.f_tanggalkembali, t_anggota.f_nama AS namaanggota, t_anggota.f_kelas, t_anggota.f_jurusan, t_admin.f_nama AS namaadmin, t_detailbuku.f_id AS iddetailbuku, t_buku.f_judul, t_kategori.f_kategori
-FROM t_peminjaman
-LEFT JOIN t_anggota ON t_peminjaman.f_idanggota = t_anggota.f_id
-LEFT JOIN t_admin ON t_peminjaman.f_idadmin = t_admin.f_id
-LEFT JOIN t_detailpeminjaman ON t_peminjaman.f_id = t_detailpeminjaman.f_idpeminjaman
-LEFT JOIN t_detailbuku ON t_detailpeminjaman.f_iddetailbuku = t_detailbuku.f_id
-LEFT JOIN t_buku ON t_detailbuku.f_idbuku = t_buku.f_id
-LEFT JOIN t_kategori ON t_buku.f_idkategori = t_kategori.f_id
-WHERE t_peminjaman.f_id IS NOT NULL AND t_buku.f_judul IS NOT NULL AND t_anggota.f_nama = '$_SESSION[namaAnggota]'
-ORDER BY t_peminjaman.f_tanggalpeminjaman DESC LIMIT $awaldata, $jumlahdataperhalaman";
-$peminjaman = $db->getALL($query);
+$admin = $db->getALL("SELECT * FROM t_admin ORDER BY f_id ASC LIMIT " . $awaldata . "," . $jumlahdataperhalaman);
 
 	// tombol cari ditekan
 if(isset($_POST["cari"])) {
-	// $peminjaman = cari($_POST["keyword"]);
+	// $pengguna = $db->cariAdmin($_POST["keyword"]);
 }
 
 ?>
@@ -46,7 +48,7 @@ if(isset($_POST["cari"])) {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Halaman Data Buku</title>
+	<title>Halaman Admin Perpustakaan</title>
 
 	<!-- Icon -->
 	<link rel="shortcut icon" href="../../assets/icon/favicon.png" type="image/x-icon">
@@ -56,7 +58,6 @@ if(isset($_POST["cari"])) {
 
 	<!-- Link Bootstrap -->
 	<link rel="stylesheet" href="../../assets/bootstrap-5.3.0/css/bootstrap.min.css">
-
 
 	<!-- Link Font Awesome -->
 	<link rel="stylesheet" href="../../assets/fontawesome/css/all.min.css">
@@ -91,13 +92,12 @@ if(isset($_POST["cari"])) {
 		}
 
 		table tr td {
-			padding: 1rem;
+			padding: .5rem;
 		}
 
 		table thead tr th {
 			background-color: #000;
 			color: #fff;
-			padding: 1rem;
 		}
 
 		table tr:nth-child(even) {
@@ -111,11 +111,6 @@ if(isset($_POST["cari"])) {
 		h1 {
 			font-size: 2.25rem;
 			margin: .5rem 0 2rem 0;
-		}
-
-		.btn {
-			padding: .35rem .375rem;
-			font-size: .8rem;
 		}
 	</style>
 </head>
@@ -140,12 +135,52 @@ if(isset($_POST["cari"])) {
 				<?php if($_SESSION['level'] == 'Anggota Perpustakaan') {
 					echo '
 					<li>
-					<a href="../peminjaman/riwayatPeminjaman.php" class="nav-link active">
+					<a href="../peminjaman/riwayatPeminjaman.php" class="nav-link text-white">
 					Riwayat Peminjaman
 					</a>
 					</li>
 					<li>';
 				} ?>
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 
+					echo '
+					<li>
+					<a href="../kategori/kategori.php" class="nav-link text-white">
+					Kategori
+					</a>
+					</li>
+
+					<li>
+					<a href="../peminjaman/peminjaman.php" class="nav-link text-white">
+					Peminjaman
+					</a> 
+					</li> 
+
+					<li>
+					<a href="../pengembalian/pengembalian.php" class="nav-link text-white">
+					Pengembalian
+					</a>
+					</li>';
+				}?>
+				<?php if ($_SESSION['level'] == 'Admin') { 
+					echo '<li>
+					<a href="../anggota/anggota.php" class="nav-link text-white">
+					Anggota
+					</a>
+					</li>
+
+					<li>
+					<a href="../admin/admin.php" class="nav-link active">
+					Admin
+					</a>
+					</li>';
+				}?>
+				<?php if ($_SESSION['level'] == 'Admin' || $_SESSION['level'] == 'Pustakawan') { 
+					echo '<li>
+					<a href="../laporan/laporan.php" class="nav-link text-white">
+					Laporan
+					</a>
+					</li>';
+				}?>
 			</ul>
 
 			<div class="d-flex col-md-3 text-end align-items-center justify-content-center">
@@ -165,16 +200,14 @@ if(isset($_POST["cari"])) {
 			</header>
 		</div>
 
-
 		<!-- Content -->
 		<div class="content">
 
 
-			<center><h1>Daftar Peminjaman Buku Perpustakaan</h1></center>
+			<center><h1>Daftar Admin Perpustakaan</h1></center>
 
 			<form action="" method="post">
-				<a class="btn btn-outline-success" href="../laporan/exportRiwayatPeminjaman.php?cetak=xls" role="button" target="_blank">Export XLS</a>
-				<a class="btn btn-outline-danger" href="../laporan/exportRiwayatPeminjaman.php?cetak=pdf" role="button" target="_blank">Export PDF</a>
+
 				<input type="text" name="keyword" id="keyword" size="40" autofocus placeholder="masukkan keyword pencarian.." autocomplete="off">
 				<button type="submit" name="cari" class="tbl-cari">Cari!</button>
 
@@ -187,57 +220,42 @@ if(isset($_POST["cari"])) {
 			</form>	
 			<br>
 
-			<table border="0" cellpadding="10" cellspacing="0" class="mb-4">
+			<table border="0" cellpadding="10" cellspacing="0" class="mb-3">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Nama</th>
-						<th>Nama Admin</th>
-						<th>Judul Buku</th>
-						<th>Kategori</th>
-						<th class="text-center">Kelas</th>
-						<th class="text-center">Jurusan</th>
-						<th class="text-center">Tanggal Pinjam</th>
-						<th class="text-center">Tanggal Kembali</th>
-						<th class="text-center">Status</th>
-
-						<?php if($_SESSION['level'] == 'Admin') { ?>
-							<th><center>Aksi</center></th>
-						<?php } ?>
+						<th>Username</th>
+						<th>Password</th>
+						<th>Level</th>
+						<th>Status</th>
+						<th><center>Aksi</center></th>
 					</tr>
 				</thead>
 				<?php $i = $halamanawal + 1;
 				?>
-				<?php if ($peminjaman) {foreach($peminjaman as $data) : ?>
+				<?php if(!empty($admin)) { 
+					foreach( $admin as $data ) : ?>
 					<tr>
 						<td><?= $i; ?></td>
-						<td><?php if($data['namaanggota'] == '') {echo 'Anggota tidak terdaftar';} else {echo $data['namaanggota'];} ?></td>
-						<td><?= $data["namaadmin"]; ?></td>
-						<td><?= $data["f_judul"]; ?></td>
-						<td><?= $data["f_kategori"]; ?></td>
-						<td class="text-center"><?= $data['f_kelas']; ?></td>
-						<td class="text-center"><?= $data['f_jurusan']; ?></td>
-						<td class="text-center"><?= $data["f_tanggalpeminjaman"]; ?></td>
-						<td class="text-center"><?= $data["f_tanggalkembali"]; ?></td>
-						<td class="text-center"><?php if($data['f_tanggalkembali'] == '0000-00-00'){ echo 'Belum Kembali';} else {echo 'Sudah Kembali';}?></td>
-						<?php if($_SESSION['level'] == 'Admin') { ?>
-							<td>
-								<center>
-									<a href="ubahPeminjaman.php?id=<?= $data["idpeminjaman"]; ?>"><i class="fa-sharp fa-solid fa-edit tbl-edit"></i></a>
-								</center>
-							</td>
-						<?php } ?>	
+						<td><?= $data["f_nama"]; ?></td>
+						<td><?= $data["f_username"]; ?></td>
+						<td><?= $data["f_password"]; ?></td>
+						<td><?= $data["f_level"]; ?></td>
+						<td><?= $data["f_status"]; ?></td>
+						<td>
+							<center>
+								<a href="ubahAdmin.php?id=<?= $data["f_id"]; ?>"><i class="fa-sharp fa-solid fa-edit tbl-edit"></i></a>
+							</center>
+						</td>
 					</tr>
 					<?php $i++; ?>
-				<?php endforeach; } else {?>
-					<div class="alert alert-danger">
-						Anda Belum Meminjam Buku!
-					</div>
-				<?php } ?>
+				<?php endforeach;} ?>
+
 			</table>
 
 			<div class="pagination-flex">
-				<div class="pagination">
+				<div class="pagination mt-4">
 					<ul class="page-list">
 						<li class="page-item">
 							<a class="page-link" <?php if ($halaman > 1) {
@@ -258,9 +276,7 @@ if(isset($_POST["cari"])) {
 				</div>
 			</div>
 		</div>
-	</main>
-
-	
-	<script src="../../assets/bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+		
+		<script src="../../assets/bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+	</body>
+	</html>

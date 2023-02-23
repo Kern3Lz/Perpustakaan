@@ -71,7 +71,7 @@ if(isset($_POST['registrasi'])) {
               <label for="level" class="form-label">Level</label>
               <select class="form-select" aria-label="Default select example" name="level" id="level">
                 <option selected>Level</option>
-                <option value="Pustakawan">Pustakawan</option>
+                <option value="Admin">Admin</option>
               </select>
             </div>
             <div class="col-md-12 mb-3 mt-2">

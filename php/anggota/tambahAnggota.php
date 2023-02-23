@@ -46,6 +46,7 @@ if(isset($_POST['tambah'])) {
   <style> 
       body {
         overflow-x: hidden;
+
       }
 
       input {
@@ -59,12 +60,16 @@ if(isset($_POST['tambah'])) {
       .form-control {
         color:  #000 !important ;
       }
+
+      .form-select {
+        color:  #000 !important ;
+      }
   </style>
 
 </head>
 <body data-bs-theme="dark">
-  <div class="container-fluid">
-    <div class="col-6 offset-md-3 shadow rounded mt-5 p-3">
+  <div class="container-fluid py-5">
+    <div class="col-6 offset-md-3 shadow rounded p-3">
       <center><h1>Halaman Tambah Anggota</h1></center>
       <hr>
       <div class="row">
@@ -89,6 +94,24 @@ if(isset($_POST['tambah'])) {
             <div class="col-md-12">
               <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
               <input type="date" name="tanggalLahir" class="form-control" id="tanggalLahir" placeholder="Masukkan tanggal lahir ..">
+            </div>
+            <div class="col-md-12">
+              <label for="kelas" class="form-label">Kelas</label>
+              <select name="kelas" id="kelas" class="form-select">
+                <option selected disabled>Pilih Kelas</option>
+                <option value="X">X</option>
+                <option value="XI">XI</option>
+                <option value="XII">XII</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label for="jurusan" class="form-label">Jurusan</label>
+              <select name="jurusan" id="jurusan" class="form-select">
+                <option selected disabled>Pilih Jurusan</option>
+                <option value="RPL">RPL</option>
+                <option value="ANM">ANM</option>
+                <option value="DKV">DKV</option>
+              </select>
             </div>
             <div class="col-6 offset-md-4">
               <a href="anggota.php" class="btn btn-danger">Kembali</a>
